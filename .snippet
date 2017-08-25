@@ -1,0 +1,14 @@
+resolver service-registry-address;
+
+upstream my_service {
+    zone backend 64k;
+    server service-hostname service=http resolve;
+}
+
+server {
+    # ...
+    location /my_service {
+        # ...
+        proxy_pass http://my_service;
+    }
+}
